@@ -79,24 +79,27 @@ ORDER BY
 --Ortalama ürün fiyatýnýn 1000 dolardan yüksek olduðu markalarýn en çok satýldýðý þehir.
 SELECT
 	e.city,
-	c.quantity
+	COUNT(d.order_id) AS cnt_order
 FROM
 	product.brand AS a
-	INNER JOIN product.product AS b ON b.brand_id = a.brand_id
-	INNER JOIN sale.order_item AS c ON b.product_id = c.product_id
+	INNER JOIN product.product AS b ON a.brand_id = b.brand_id
+	INNER JOIN sale.order_item AS c ON c.product_id = b.product_id
 	INNER JOIN sale.orders AS d ON d.order_id = c.order_id
 	INNER JOIN sale.customer AS e ON e.customer_id = d.customer_id
-WHERE a.brand_name IN(
+WHERE
+	a.brand_name IN (
 SELECT
-	brand_name
+	a.brand_name
 FROM
 	product.brand AS a
 	INNER JOIN product.product AS b ON b.brand_id = a.brand_id
 GROUP BY
 	a.brand_name
 HAVING
-	AVG(list_price) > 1000
-)
+	AVG(b.list_price) > 1000
+	)
+GROUP BY
+	e.city
 ORDER BY
 	2 DESC
 --devamý gelecek
@@ -111,7 +114,7 @@ FROM
 GROUP BY 
 	a.order_id;
 
------
+--Write a query that returns monthly order counts of the States.
 SELECT
 	a.state,
 	YEAR(order_date) AS Years,
@@ -135,16 +138,18 @@ DISTINCT YEAR(order_date)
 FROM
 	sale.orders
 
-	--------------
+-----///////////////////////------
 
---------------------
+--GRUPING SETS
+
+--1. Calculate the total sales price.
 
 SELECT 
 	SUM(list_price * quantity * ( 1 - discount)) AS total_sales
 FROM
 	sale.order_item
 
--------------
+--2. Calculate the total sales price of the brands
 SELECT
 	c.brand_name,
 	SUM(A.list_price * quantity * ( 1 - discount)) AS total_sales
@@ -155,7 +160,7 @@ WHERE
 	AND B.brand_id = C.brand_id
 GROUP BY
 	c.brand_name
----------3.
+--3. Calculate the total sales price of the model year
 SELECT
 	model_year,
 	SUM(A.list_price * quantity * ( 1 - discount)) AS total_sales
@@ -165,7 +170,7 @@ WHERE
 	A.product_id = B.product_id
 GROUP BY
 	model_year
-	---4.
+--4. Calculate the total sales price by brands and model year.
 SELECT
 	c.brand_name,
 	model_year,
@@ -182,7 +187,7 @@ ORDER BY
 
 --------------------------union ile birlestir . odev .
 
-	--grouping set
+------GROUPING SETS
 
 
 SELECT
@@ -228,13 +233,19 @@ ORDER BY
 	c.brand_name, model_year
 
 -------------------------------------------------------------------
---- summary table
---brand, category, model_year, total_sales_prices
+---summary table
+
+
+--brand, category, model_year, total_sales_price
+
+
 /*
 SELECT ...
-INTO
-FROM ...
-*/--for create new tablo as fast
+INTO	...
+FROM ....
+
+*/
+
 
 SELECT
 	c.brand_name,
