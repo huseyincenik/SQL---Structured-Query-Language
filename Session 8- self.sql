@@ -186,7 +186,50 @@ ORDER BY
 	c.brand_name, model_year
 
 --------------------------union ile birlestir . odev .
+SELECT
+	NULL AS brand_name,
+	NULL AS model_year,
+	SUM( quantity * list_price * ( 1 - discount)) AS total_sales_price
+FROM
+	sale.order_item AS a
+--2. Calculate the total sales price of the brands
+UNION
+SELECT	
+	a.brand_name,
+	NULL AS model_year,
+	SUM( quantity * c.list_price * ( 1 - discount)) AS total_sales_price
+FROM
+	product.brand AS a
+	INNER JOIN product.product AS b ON b.brand_id = a.brand_id
+	INNER JOIN sale.order_item AS c ON c.product_id = b.product_id
+GROUP BY
+	a.brand_name
+UNION
+--3. Calculate the total sales price of the model year
 
+SELECT
+	NULL AS brand_name,
+	model_year,
+	SUM(A.list_price * quantity * ( 1 - discount)) AS total_sales
+FROM
+	sale.order_item AS A , product.product AS B 
+WHERE
+	A.product_id = B.product_id
+GROUP BY
+	model_year
+--4. Calculate the total sales price by brands and model year.
+UNION
+SELECT	
+	a.brand_name,
+	b.model_year,
+	SUM( quantity * c.list_price * ( 1 - discount)) AS total_sales_price
+FROM
+	product.brand AS a
+	INNER JOIN product.product AS b ON b.brand_id = a.brand_id
+	INNER JOIN sale.order_item AS c ON c.product_id = b.product_id
+GROUP BY
+	a.brand_name,
+	b.model_year
 ------GROUPING SETS
 
 
