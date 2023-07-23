@@ -16,7 +16,7 @@ SELECT
 	CASE WHEN transaction_type != 'Online' AND sales_agent IS NOT NULL THEN 1 ELSE 0 END AS outbound,
 	CASE WHEN transaction_type != 'Online' AND sales_agent IS NULL THEN 1 ELSE 0 END AS inbound,
 	CASE WHEN transaction_type = 'Online' THEN 1 ELSE 0 END AS website,
-	COUNT(DISTINCT sales_agent) OVER(PARTITION BY [hour]) AS hour_count
+	COUNT(sales_agent) OVER(PARTITION BY [hour]) AS hour_count
 FROM( VALUES
 	('8:00', 'ABC123', 'Online', NULL),
 	('8:00', 'ABC123', 'Online', NULL),
@@ -145,6 +145,34 @@ FROM( VALUES    ('A23bc', 101, 'API'),
     ('E4Sdf', 606, 'Mobile App'),
     ('E4Sdf', 606, 'API'),
     ('E4Sdf', 606, 'API')) as table1 ([user_id], [client_id], [source])) AS subq
+
+
+SELECT
+	*,
+	COUNT(client_id) OVER(PARTITION BY [user_id]) AS cnt_of_clients,
+	CASE WHEN COUNT(client_id) OVER(PARTITION BY [user_id]) > 1 THEN 'Multiple' ELSE [source] END AS source_of_users
+
+FROM(
+SELECT
+	DISTINCT *
+FROM(VALUES ('A23bc', 101, 'API'),
+    ('A23bc', 101, 'API'),
+    ('A23bc', 101, 'API'),
+    ('X9PqW', 202, 'Mobile App'),
+    ('X9PqW', 202, 'Website'),
+    ('X9PqW', 202, 'Social Media'),
+    ('G7RtZ', 808, 'Mobile App'),
+    ('G7RtZ', 303, 'Mobile App'),
+    ('G7RtZ', 303, 'Mobile App'),
+    ('T5Yhn', 404, 'Website'),
+    ('T5Yhn', 405, 'Social Media'),
+    ('T5Yhn', 406, 'Social Media'),
+    ('K8Mju', 505, 'Website'),
+    ('K8Mju', 505, 'Website'),
+    ('K8Mju', 505, 'Website'),
+    ('E4Sdf', 606, 'Mobile App'),
+    ('E4Sdf', 606, 'API'),
+    ('E4Sdf', 606, 'API')) as table1 ([user_id], [client_id], [source])) AS subquery
 
 
 
