@@ -1,5 +1,5 @@
 # TÜRKÇE
-# E-commerce SQL Projesi
+# SQL ile E-Ticaret Verileri ve Müşteri Elde Tutma Analizi Projesi
 
 ![E-commerce SQL Projesi](https://github.com/huseyincenik/SQL---Structured-Query-Language/assets/127469334/5eedd4ab-fee5-4f4a-b7d5-9247b2661219)
 
@@ -39,7 +39,7 @@ Umarım bu README.md dosyası E-commerce SQL projesi için size yardımcı olur.
 
 # ENGLISH
 
-# E-commerce SQL Project
+# E-Commerce Data and Customer Retention Analysis with SQL Project
 
 ![E-commerce SQL Project](https://github.com/huseyincenik/SQL---Structured-Query-Language/assets/127469334/5eedd4ab-fee5-4f4a-b7d5-9247b2661219)
 
