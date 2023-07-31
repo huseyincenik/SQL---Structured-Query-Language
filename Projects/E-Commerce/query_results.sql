@@ -96,18 +96,28 @@ GO
 
 
 SELECT
-	*,
-	DATEDIFF(DAY, first_purchasing, third_purchasing) AS difference_first_and_third_purchase
+	cust_id,
+	first_purchasing,
+	date_diff,
+	third_purchasing
+FROM(
+SELECT
+	DISTINCT *,
+	ROW_NUMBER() OVER(PARTITION BY cust_id ORDER BY first_purchasing) AS row_number
 FROM(
 SELECT
 	A.cust_id,
 	order_date AS first_purchasing,
-	LEAD(order_date, 2) OVER(PARTITION BY A.cust_id ORDER BY B.order_date) AS third_purchasing
+	DATEDIFF(DAY,order_date , LEAD(order_date, 2) OVER(PARTITION BY A.cust_id ORDER BY B.order_date,ord_id)) AS date_diff,
+	LEAD(order_date, 2) OVER(PARTITION BY A.cust_id ORDER BY B.order_date,ord_id) AS third_purchasing
 FROM
 	customer.customer_table AS A
-	INNER JOIN [order].order_table AS B ON B.cust_id = A.cust_id) AS subquery
+	INNER JOIN [order].order_table AS B ON B.cust_id = A.cust_id
+) AS subquery
 WHERE 
-	third_purchasing IS NOT NULL
+	third_purchasing IS NOT NULL) AS subquery_2
+WHERE
+	[row_number] = 1
 ORDER BY
 	cust_id;
 
@@ -171,6 +181,8 @@ FROM
 	INNER JOIN	T3 ON T3.cust_id = T2.cust_id
 ORDER BY
 	T1.cust_id
+
+
 
 
 -----------------------
@@ -581,9 +593,9 @@ SELECT
 	DISTINCT
 	A.year_date,
 	A.month_date,
-	COUNT(cust_id) OVER(ORDER BY A.year_date,A.month_date) cnt_consecutive,
+	COUNT(cust_id) OVER(PARTITION BY A.year_date,A.month_date ORDER BY A.year_date,A.month_date) cnt_consecutive,
 	B.cnt_total,
-	CAST(1.0 * COUNT(cust_id) OVER(ORDER BY A.year_date,A.month_date) / B.cnt_total AS DECIMAL(5,2)) AS month_wise_retention_rate
+	CAST(1.0 * COUNT(cust_id) OVER(PARTITION BY A.year_date,A.month_date ORDER BY A.year_date,A.month_date) / B.cnt_total AS DECIMAL(5,2)) AS month_wise_retention_rate
 FROM
 	vw_year_month_consecutive AS A
 	INNER JOIN (
@@ -594,6 +606,7 @@ FROM
 	FROM
 		[order].order_table
 	) AS B ON A.year_date = B.year_date AND A.month_date = B.month_date
+WHERE A.year_date + A.month_date ! = '2010'
 ORDER BY
 	1,2
 
