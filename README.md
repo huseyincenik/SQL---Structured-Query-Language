@@ -1,35 +1,5 @@
 ![SQL](https://usa.bootcampcdn.com/wp-content/uploads/sites/106/2020/03/SQL-Coding-Class-San-Francisco-1.jpeg)
 
-
-# TÜRKÇE
-# SQL - Structured Query Language
-
-SQL, veritabanı yönetim sistemlerinde (RDBMS) kullanılan yapılandırılmış bir sorgu dilidir. Aşağıda SQL ile ilgili temel bilgiler bulunmaktadır.
-
-## SQL Nedir?
-
-SQL (Structured Query Language), veritabanı yönetim sistemlerinde veri tanımlama, sorgulama, ekleme, güncelleme ve silme gibi işlemler için kullanılan bir programlama dilidir. SQL, ilişkisel veritabanlarında verilerin yönetimi için standart bir yol sağlar.
-
-## SQL Özellikleri
-
-- Basit ve anlaşılması kolay bir dil yapısına sahiptir.
-- Veritabanı yönetimi için geniş bir işlevselliğe sahiptir.
-- Veri sorgulama ve veri manipülasyonu gibi çeşitli işlemleri gerçekleştirebilir.
-- Veri bütünlüğünü sağlamak için kısıtlamalar ve ilişkiler tanımlayabilir.
-- Veritabanı güvenliği için kullanıcı yetkilendirmesi yapabilir.
-
-## SQL Çalışma Alanım
-Bu repoda ; SQL ile yaptığım çalışmaları paylaşıyorum.
-
-## Kaynaklar
-
-- [SQL W3Schools](https://www.w3schools.com/sql/)
-- [SQL Tutorial - Mode Analytics](https://mode.com/sql-tutorial/)
-
------------------------------------------------------------------------------------------------------------------------------------
-
-## ENGLISH
-
 # SQL - Structured Query Language
 
 SQL is a structured query language used in database management systems (RDBMS). Below are some basic facts about SQL.
@@ -53,4 +23,12 @@ In this repository, I share my projects and work related to SQL.
 
 - [SQL W3Schools](https://www.w3schools.com/sql/)
 - [SQL Tutorial - Mode Analytics](https://mode.com/sql-tutorial/)
+
+# SQL Projects
+
+| Project Name | Description | GitHub |
+| --- | --- | --- |
+| **E-Commerce** | Explore the world of SQL in the context of an E-Commerce project. Analyze and query the database to gain insights into customer behavior, sales trends, and more. Implement normalization techniques to optimize the database structure and enhance data integrity. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/E-Commerce) |
+| **Analyzing COVID-19 Data with SQL** | Dive into SQL analysis of COVID-19 data. This project involves querying and examining COVID-19 datasets to extract valuable information and trends related to the pandemic. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/analyzing_COVID-19_data_with_SQL) |
+
 
