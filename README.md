@@ -30,5 +30,6 @@ In this repository, I share my projects and work related to SQL.
 | --- | --- | --- |
 | **E-Commerce** | Explore the world of SQL in the context of an E-Commerce project. Analyze and query the database to gain insights into customer behavior, sales trends, and more. Implement normalization techniques to optimize the database structure and enhance data integrity. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/E-Commerce) |
 | **Analyzing COVID-19 Data with SQL** | Dive into SQL analysis of COVID-19 data. This project involves querying and examining COVID-19 datasets to extract valuable information and trends related to the pandemic. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/analyzing_COVID-19_data_with_SQL) |
+| **8 Week SQL Challenge** | Explore various SQL challenges including Danny's Diner, Pizza Runner, Foodie-Fi, Data Bank, Data Mart, Clique Bait, Balanced Tree Clothing Co., and Fresh Segments. Each project involves analyzing different datasets and solving business-related SQL queries. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/%208_Week_SQL_Challenge) |
 
 
