@@ -33,3 +33,4 @@ In this repository, I share my projects and work related to SQL.
 | **8 Week SQL Challenge** | Explore various SQL challenges including Danny's Diner, Pizza Runner, Foodie-Fi, Data Bank, Data Mart, Clique Bait, Balanced Tree Clothing Co., and Fresh Segments. Each project involves analyzing different datasets and solving business-related SQL queries. | [GitHub](https://github.com/huseyincenik/SQL---Structured-Query-Language/tree/main/Projects/%208_Week_SQL_Challenge) |
 
 
+[![](https://visitcount.itsvg.in/api?id=huseyincenik.SQL---Structured-Query-Language&label=Visiter%20Count&color=10&icon=9&pretty=false)](https://visitcount.itsvg.in)
