@@ -67,7 +67,7 @@ INSERT INTO pizza_runner.runner_orders ("order_id", "runner_id", "pickup_time", 
 DROP TABLE IF EXISTS pizza_runner.pizza_names;
 CREATE TABLE pizza_runner.pizza_names (
   "pizza_id" INTEGER,
-  "pizza_name" TEXT
+  "pizza_name" VARCHAR(100)
 );
 
 INSERT INTO pizza_runner.pizza_names ("pizza_id", "pizza_name") VALUES
