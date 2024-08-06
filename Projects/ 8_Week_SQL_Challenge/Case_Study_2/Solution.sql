@@ -64,8 +64,6 @@ SET
         ELSE cancellation 
     END;
 
-
-
 -- c) Clean exclusions and extras columns
 UPDATE pizza_runner.customer_orders
 SET exclusions = CASE
@@ -78,7 +76,6 @@ SET extras = CASE
     WHEN extras = 'null' OR extras = '' THEN NULL 
     ELSE extras
 END;
-
 
 -- d) Change `pickup_time` to `DATETIME`
 ALTER TABLE pizza_runner.runner_orders
@@ -93,6 +90,8 @@ ALTER TABLE pizza_runner.runner_orders
 ALTER COLUMN duration INT;
 
 --- START
+
+--- A. Pizza Metrics
 
 -- Question 1) How many pizzas were ordered?
 
@@ -132,3 +131,84 @@ GROUP BY
 	b.pizza_name;
 
 -- Question 5) How many Vegetarian and Meatlovers were ordered by each customer?
+
+SELECT
+	a.customer_id,
+	b.pizza_name,
+	COUNT(a.pizza_id) AS count_of_pizza
+FROM
+	pizza_runner.customer_orders AS a
+	JOIN pizza_runner.pizza_names AS b ON b.pizza_id = a.pizza_id
+GROUP BY
+	a.customer_id,
+	b.pizza_name
+
+-- Question 6) What was the maximum number of pizzas delivered in a single order?
+
+SELECT
+	MAX(count_of_pizza) AS max_pizza_in_single_order
+FROM (
+SELECT
+	order_id,
+	COUNT(pizza_id) AS count_of_pizza
+FROM
+	pizza_runner.customer_orders
+GROUP BY
+	order_id
+	) AS subquery;
+
+-- Question 7) For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+
+
+WITH order_changes AS (
+
+SELECT 
+	customer_id,
+	COUNT(CASE WHEN exclusions IS NOT NULL OR extras IS NOT NULL THEN 1 END) AS pizzas_with_changes,
+	COUNT(CASE WHEN exclusions IS NULL AND extras IS NULL THEN 1 END) AS pizzas_without_changes
+FROM 
+	pizza_runner.customer_orders
+GROUP BY
+	customer_id
+	)
+SELECT
+	customer_id,
+	pizzas_with_changes,
+	pizzas_without_changes
+FROM
+	order_changes
+ORDER BY
+	customer_id;
+
+-- Question 8) How many pizzas were delivered that had both exclusions and extras?
+
+-- Solution I
+
+SELECT
+	COUNT(*) AS count_of_pizza
+
+FROM (
+SELECT 
+	order_id,
+	pizza_id,
+	COUNT(CASE WHEN exclusions IS NOT NULL AND extras IS NOT NULL THEN 1 END) AS exclusions_with_extras
+FROM 
+	pizza_runner.customer_orders
+GROUP BY
+	order_id, pizza_id
+	) AS subquery
+
+WHERE
+	exclusions_with_extras != 0
+
+
+-- Solution II
+
+SELECT
+	COUNT(*) AS count_of_pizza
+FROM
+	pizza_runner.customer_orders
+WHERE
+	exclusions IS NOT NULL AND extras IS NOT NULL
+
+-- Question 9) What was the total volume of pizzas ordered for each hour of the day?
